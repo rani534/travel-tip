@@ -22,7 +22,7 @@ function getPosition() {
     })
 }
 
-function getLocFromInput(el){
+function getLocFromInput(el) {
     var prm = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${el}&key=AIzaSyAsASbQsbEeFyHwe6Ypjlwei49tcUNY604`);
     prm.then(res => res)
     prm.catch(err => {
@@ -31,3 +31,4 @@ function getLocFromInput(el){
     console.log(prm)
     return prm
 }
+
