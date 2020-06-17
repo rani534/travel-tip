@@ -23,10 +23,10 @@ window.onload = () => {
 
 
 document.querySelector('.btn').addEventListener('click', (ev) => {
-   
+    console.log(ev.target)
     locService.getPosition()
         .then(pos => {
-            mapService.panTo(pos.lat, pos.lng)
+            mapService.panTo(pos.latitude, pos.longitude)
         })
         .catch(err => {
             console.log('err!!!', err);
@@ -34,10 +34,8 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
 })
 
 
-
 document.querySelector('.btn-location').addEventListener('click', () => {
     var elInput = document.querySelector('.input-loc').value;
-    console.log(elInput)
     locService.getLocFromInput(elInput)
         .then(pos => {
             console.log(pos)
