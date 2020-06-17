@@ -1,6 +1,7 @@
 export const locService = {
-    getLocs: getLocs,
-    getPosition: getPosition
+    getLocs,
+    getLocFromInput,
+    getPosition
 }
 var locs = [{ lat: 11.22, lng: 22.11 }]
 
@@ -21,3 +22,12 @@ function getPosition() {
     })
 }
 
+function getLocFromInput(el){
+    var prm = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${el}&key=AIzaSyAsASbQsbEeFyHwe6Ypjlwei49tcUNY604`);
+    prm.then(res => res)
+    prm.catch(err => {
+        console.log('input loc ERR:', err);
+    })
+    console.log(prm)
+    return prm
+}

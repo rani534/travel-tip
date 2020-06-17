@@ -29,18 +29,22 @@ window.onload = () => {
         })
 }
 
-<<<<<<< HEAD
-
-
-document.querySelector('.btn').addEventListener('click', (ev) => {
-    console.log('Aha!', ev.target);
-    mapService.panTo(35.6895, 139.6917);
-})
-=======
 function moveToLocation(lat, lng) {
     document.querySelector('.btn').addEventListener('click', (ev) => {
         console.log('Aha!', ev.target);
         mapService.panTo(lat, lng);
     })
 }
->>>>>>> b290f6f3c63e2df249f83c83f39fb79f24347edf
+
+
+document.querySelector('.btn-location').addEventListener('click', (ev) => {
+    var elInput = document.querySelector('.input-loc').value;
+    console.log(elInput)
+    locService.getLocFromInput(elInput)
+        .then(pos => {        
+            mapService.addMarker(pos.data.results[0].geometry.location);
+            mapService.panTo(pos.data.results[0].geometry.location.lat, pos.data.results[0].geometry.location.lng)
+        })
+})
+
+
