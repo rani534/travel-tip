@@ -1,7 +1,8 @@
 export const locService = {
     getLocs,
     getLocFromInput,
-    getPosition
+    getPosition,
+    getWeatherForLoc
 }
 var locs = [{ lat: 11.22, lng: 22.11 }]
 
@@ -31,3 +32,14 @@ function getLocFromInput(el){
     console.log(prm)
     return prm
 }
+
+function getWeatherForLoc(lat, lng){
+    var prm = axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&appid=a8696af3caa6897d7557a938e56a28e7`);
+    prm.then(res => console.log(res.data));
+    prm.catch(err => {
+        console.log('input loc ERR:', err);
+    })
+    console.log(prm)
+    return prm
+}
+
