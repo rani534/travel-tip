@@ -12,12 +12,11 @@ window.onload = () => {
         .then(() => {
             locService.getPosition()
                 .then(pos => {
-                    mapService.addMarker({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-                    mapService.panTo(pos.coords.latitude, pos.coords.longitude);
-                    weatherLoc(pos.coords.latitude, pos.coords.longitude);
-                    // console.log(pos);
+                    console.log(pos)
                     
-                    // renderLocation(pos);
+                    mapService.addMarker({ lat: pos.latitude, lng: pos.longitude });
+                    mapService.panTo(pos.latitude, pos.longitude);
+                    weatherLoc(pos.latitude, pos.longitude);
                 })
         })
         .catch(console.log('INIT MAP ERROR'));
@@ -25,7 +24,7 @@ window.onload = () => {
     locService.getPosition()
         .then(pos => {
 
-            moveToLocation(pos.coords.latitude, pos.coords.longitude);
+            moveToLocation(pos.latitude, pos.longitude);
             // console.log('User position is:', pos.coords.latitude, pos.coords.longitude);
         })
         .catch(err => {
@@ -46,9 +45,10 @@ document.querySelector('.btn-location').addEventListener('click', () => {
     console.log(elInput)
     locService.getLocFromInput(elInput)
         .then(pos => {
-            mapService.addMarker(pos.data.results[0].geometry.location);
-            mapService.panTo(pos.data.results[0].geometry.location.lat, pos.data.results[0].geometry.location.lng)
-            weatherLoc(pos.data.results[0].geometry.location.lat, pos.data.results[0].geometry.location.lng)
+            console.log(pos)
+            mapService.addMarker(pos);
+            mapService.panTo(pos.lat, pos.lng)
+            weatherLoc(pos.lat, pos.lng)
             // locService.getWeatherForLoc(pos.data.results[0].geometry.location.lat, pos.data.results[0].geometry.location.lng)
             //     .then(res => {
             //         let tmp = res.data.current.temp;
@@ -69,7 +69,7 @@ function weatherLoc(lat, lng) {
         })
 }
 
-function renderLocation(loc){
-    document.querySelector('.location').innerHTML = `Location: ${loc}`;
-}
+// function renderLocation(loc) {
+//     document.querySelector('.location').innerHTML = `Location: ${loc}`;
+// }
 

@@ -21,15 +21,17 @@ function getPosition() {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
+    .then(res => res.coords)
 }
 
 function getLocFromInput(el) {
-    var prm = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${el}&key=AIzaSyAsASbQsbEeFyHwe6Ypjlwei49tcUNY604`);
-    prm.then(res => res)
-    prm.catch(err => {
-        console.log('input loc ERR:', err);
+    var prm = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${el}&key=AIzaSyAsASbQsbEeFyHwe6Ypjlwei49tcUNY604`)
+    .then(res => {
+         return res.data.results[0].geometry.location
     })
-    console.log(prm)
+    .catch(err => {
+       return console.log('input loc ERR:', err)
+    })
     return prm
 }
 
@@ -39,7 +41,6 @@ function getWeatherForLoc(lat, lng){
     prm.catch(err => {
         console.log('input loc ERR:', err);
     })
-    console.log(prm)
     return prm
 }
 
