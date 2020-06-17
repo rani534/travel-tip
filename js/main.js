@@ -10,22 +10,28 @@ locService.getLocs()
 window.onload = () => {
     mapService.initMap()
         .then(() => {
-
-            mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+            locService.getPosition()
+                .then(pos => {
+                    mapService.addMarker({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+                    mapService.panTo(pos.coords.latitude, pos.coords.longitude)
+                })
         })
         .catch(console.log('INIT MAP ERROR'));
 
     locService.getPosition()
         .then(pos => {
 
-            console.log('User position is:', pos.coords);
+            moveToLocation(pos.coords.latitude, pos.coords.longitude);
+            // console.log('User position is:', pos.coords.latitude, pos.coords.longitude);
         })
         .catch(err => {
             console.log('err!!!', err);
         })
 }
 
-document.querySelector('.btn').addEventListener('click', (ev) => {
-    console.log('Aha!', ev.target);
-    mapService.panTo(35.6895, 139.6917);
-})
+function moveToLocation(lat, lng) {
+    document.querySelector('.btn').addEventListener('click', (ev) => {
+        console.log('Aha!', ev.target);
+        mapService.panTo(lat, lng);
+    })
+}
